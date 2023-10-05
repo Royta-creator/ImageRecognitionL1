@@ -8,6 +8,8 @@ from tensorflow.keras.applications.inception_v3 import InceptionV3, preprocess_i
 import numpy as np
 import pyttsx3
 
+root = tk.Tk()
+root.withdraw()
 #Initialisation de la voix
 def text_to_speech(text):
     engine = pyttsx3.init()
@@ -20,7 +22,7 @@ def text_to_speech(text):
 
     engine.say(text)
     engine.runAndWait()
-#Preparation du model basé sur inceptionV3 et utilisant les donnés de imagenet pour les poids
+#Preparation du model basé sur inceptionV3 et utilisanrt les donnés de imagenet pour les poids
 def load_model():
     return InceptionV3(weights='imagenet')
 
@@ -32,12 +34,11 @@ def preprocess_image(img_path):
 
 def predict_animal(model, img_array):
     predictions = model.predict(img_array)
-    decoded_predictions = decode_predictions(predictions, top=3)[0]
+    decoded_predictions = decode_predictions(predictions, top=1)[0]
 
     for i, (_, label, score) in enumerate(decoded_predictions):
-        print(f"{i + 1}: {label} ({score:.2f})")
+        print(f"{i}: {label} ({score:.2f})")
         text_to_speech(f"the image seems to represent a {label}")
-        break
 #Chatbot pour prendre les inputs de l'utilisateur
 def chatbot():
     print("Chatbot: Hello! I'm your image recognition chatbot.")
@@ -55,6 +56,9 @@ def chatbot():
 
         elif "recognize image" in user_input:
             text_to_speech("Choose an image")
+            root.lift()
+            root.attributes('-topmost',True)
+            root.after_idle(root.attributes,'-topmost',False)
             img_path = filedialog.askopenfilename(title="Choose an image")
             model = load_model()
             img_array = preprocess_image(img_path)
