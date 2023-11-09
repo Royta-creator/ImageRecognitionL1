@@ -1,4 +1,4 @@
-# L1-projects Tensorflow
+# ImageRcognitionL1-project Tensorflow
 L1 Project 2023 - 2024
 
 Reconnaissance d'image :
