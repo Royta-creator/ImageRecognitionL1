@@ -7,13 +7,11 @@ from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.inception_v3 import InceptionV3, preprocess_input, decode_predictions
 import numpy as np
 import pyttsx3
-
+engine = pyttsx3.init()
 root = tk.Tk()
 root.withdraw()
 #Initialisation de la voix
 def text_to_speech(text):
-    engine = pyttsx3.init()
-
     engine.setProperty('rate', 150) 
     engine.setProperty('volume', 0.9) 
 
