@@ -22,7 +22,7 @@ def text_to_speech(text):
 
     engine.say(text)
     engine.runAndWait()
-#Preparation du model basé sur inceptionV3 et utilisanrt les donnés de imagenet pour les poids
+#Preparation du model basé sur inceptionV3 au moment de ImageNet
 def load_model():
     return InceptionV3(weights='imagenet')
 
